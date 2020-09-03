@@ -1,6 +1,6 @@
 # GEO1000 - Assignment 1
-# Authors: Ondrej Vesely,
-# Studentnumbers: 5162130,
+# Authors: Ondrej Vesely, Giorgos Triaantafyllou
+# Studentnumbers: 5162130, 5381738
 
 import math
 
