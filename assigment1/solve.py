@@ -15,7 +15,7 @@ def abc(a, b, c):
         print('not real')
     elif d == 0:
         x = -b/2*a
-        # ridiculous check
+        # ridiculous check to get rid of negative zeros
         if x == 0:
             x = 0.0
         print('x =', x)
