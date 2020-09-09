@@ -9,12 +9,10 @@ def distance(x1, y1, x2, y2):
     """Calculate the distance between two points."""
     return math.sqrt((x2-x1)**2 + (y2-y1)**2)
 
-
 def heron(a, b, c):
     """Calculate the area of a triangle."""
     s = (a+b+c) / 2
     return math.sqrt(s * (s-a) * (s-b) * (s-c))
-
 
 def angle(a, b, c):
     """Calculate the angle between sides a, b of triangle."""
@@ -39,7 +37,7 @@ def segment_point_dist(s1x, s1y, s2x, s2y, px, py):
         area = heron(a, b, c)
         return area/c*2
 
-# test
+
 print(segment_point_dist(0, 0, 10, 0, 5, 10))
 print(segment_point_dist(0, 0, 10, 0, 20, 0))
 print(segment_point_dist(0, 0, 10, 0, -10, -10))
