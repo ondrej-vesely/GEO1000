@@ -32,4 +32,3 @@ def discriminant(a, b, c):
 abc(2.0, 0.0, 0.0)
 abc(1.0, 3.0, 2.0)
 abc(3.0, 4.5, 9.0)
-#Test
