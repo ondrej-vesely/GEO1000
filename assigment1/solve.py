@@ -6,11 +6,26 @@ from math import sqrt
 
 
 def abc(a, b, c):
-    pass
+
+    print('The roots of %s x^2 + %s x + %s are:' % (a, b, c))
+
+    d = discriminant(a, b, c)
+
+    if d < 0:
+        print('not real')
+
+    elif d == 0:
+        x = -b/2*a
+        print('x =', x)
+
+    else:
+        x1 = (-b + sqrt(d)) / 2*a
+        x2 = (-b - sqrt(d)) / 2*a
+        print('x1 =', x1, ', x2 =', x2)
 
 
 def discriminant(a, b, c):
-    pass
+    return b**2 - (4*a*c)
 
 
 abc(2.0, 0.0, 0.0)
