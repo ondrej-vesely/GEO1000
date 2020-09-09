@@ -6,18 +6,19 @@ from math import sqrt
 
 
 def abc(a, b, c):
+    """Solve a quadratic equation and print results."""
 
     print('The roots of %s x^2 + %s x + %s are:' % (a, b, c))
 
     d = discriminant(a, b, c)
-
     if d < 0:
         print('not real')
-
     elif d == 0:
         x = -b/2*a
+        # ridiculous check
+        if x == 0:
+            x = 0.0
         print('x =', x)
-
     else:
         x1 = (-b + sqrt(d)) / 2*a
         x2 = (-b - sqrt(d)) / 2*a
