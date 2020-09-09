@@ -6,7 +6,7 @@ from math import sqrt
 
 
 def abc(a, b, c):
-    """Solve a quadratic equation and print results."""
+    """Solve an x of quadratic equation (ax2 + bx + c = 0)."""
 
     print('The roots of %s x^2 + %s x + %s are:' % (a, b, c))
 
