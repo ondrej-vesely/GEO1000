@@ -41,16 +41,15 @@ def main():
 
     if sudoku == 'quit':
         pass
-
     else:
         chunks = parse(sudoku)
-        if chunks and sudoku.isdigit:
+        if not chunks and sudoku.isdigit:
+            print('Input not understood.') 
+        else:
             if is_valid(chunks):
                 print('This sudoku is *VALID*')
             else:
                 print('This sudoku is *INVALID*')
-        else:
-            print('Input not understood.')
 
         main()
 
