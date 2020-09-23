@@ -24,11 +24,11 @@ _bitmasks = [
 
 def parse(sudoku):
     if len(sudoku) == 16:
-        return [[n for n, bit in zip(sudoku, mask) if int(bit)] for mask in _bitmasks]
+        return [tuple([int(n) for n, bit in zip(sudoku, mask) if int(bit)]) for mask in _bitmasks]
 
 
 def is_valid(structure):
-    test = '1234'
+    test = [1,2,3,4]
     for chunk in structure:
         for number in test:
             if not number in chunk:
@@ -46,7 +46,7 @@ def main():
         chunks = parse(sudoku)
         if chunks and sudoku.isdigit():
             # print out the sudoku because its nice
-            print('\n'.join(['  '.join(ch) for ch in chunks[:4]]))
+            print('\n'.join(['  '.join([str(n) for n in ch]) for ch in chunks[:4]]))
             if is_valid(chunks):
                 print('This sudoku is *VALID*')
             else:
