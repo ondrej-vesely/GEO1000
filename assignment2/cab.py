@@ -7,11 +7,20 @@ def wiggle(start, end, moves):
     length = abs(end - start)
 
     if length > moves:
+        # too short
         return 0
-    if length == moves:
-        return 1
+    elif length == moves:
+        # straight path
+        return 1    
+    elif (length - moves)%2 == 1:
+        # one move too many
+        return 0
     else:
-        return 1 + ((moves-length)//2)*(length+1)
+        # count number of reverse steps and their permutations
+        product = 1
+        for n in range(moves, moves - (length-moves)//2):
+            product = product * n
+        return product
 
 
 if __name__ == "__main__":
