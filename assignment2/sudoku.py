@@ -29,7 +29,7 @@ def parse(sudoku):
 
 
 def is_valid(structure):
-    test = range(1,4)
+    test = '1234'
     for chunk in structure:
         for number in test:
             if not number in chunk:
