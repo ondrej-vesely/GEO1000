@@ -9,7 +9,7 @@ def sentence_value(sentence):
     sum = 0
     for char in sentence.lower():
         if char.isalpha():
-            sum += ord(char)-96
+            sum += 1 + string.ascii_lowercase.index(char)
     return sum
 
 
