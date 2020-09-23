@@ -1,16 +1,27 @@
 # GEO1000 - Assignment 2
-# Authors:
-# Studentnumbers:
+# Authors: Ondrej Vesely, Giorgos Triantafyllou
+# Studentnumbers: 5162130, 5381738
 
 import string
 
 
 def sentence_value(sentence):
-    pass
+    sum = 0
+    for char in sentence.lower():
+        if char.isalpha():
+            sum += ord(char)-96
+    return sum
 
 
 def rds(value):
-    pass
+    sum = 0
+    for char in str(value):
+        if char.isdigit():
+            sum += int(char)
+    if sum >= 10:
+        return rds(sum)
+    else:
+        return sum
 
 
 if __name__ == "__main__":
