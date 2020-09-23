@@ -23,9 +23,8 @@ _bitmasks = [
 
 
 def parse(sudoku):
-    if len(sudoku) != 16:
-        return None
-    return [[n for n, bit in zip(sudoku, mask) if int(bit)] for mask in _bitmasks]
+    if len(sudoku) == 16:
+        return [[n for n, bit in zip(sudoku, mask) if int(bit)] for mask in _bitmasks]
 
 
 def is_valid(structure):
@@ -58,3 +57,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
