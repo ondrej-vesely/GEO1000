@@ -36,6 +36,7 @@ def is_valid(structure):
     return True
 
 
+
 def main():
     sudoku = input('Your sudoku for validation, or "quit" to exit:  ')
 
@@ -43,14 +44,16 @@ def main():
         pass
     else:
         chunks = parse(sudoku)
-        if not chunks and sudoku.isdigit:
-            print('Input not understood.') 
-        else:
+        if chunks and sudoku.isdigit():
+            # print out the sudoku because its nice
+            print('\n'.join(['  '.join(ch) for ch in chunks[:4]]))
             if is_valid(chunks):
                 print('This sudoku is *VALID*')
             else:
-                print('This sudoku is *INVALID*')
-
+                print('This sudoku is *INVALID*')     
+        else:
+            print('Input not understood.') 
+            
         main()
 
 
