@@ -18,12 +18,11 @@ _bitmasks = [
     '1100110000000000',
     '0011001100000000',
     '0000000011001100',
-    '0000000000110011'
-]
+    '0000000000110011']
 
 
 def parse(sudoku):
-    if len(sudoku) == 16:
+    if len(sudoku) == 16 and sudoku.isdigit():
         return [tuple([int(n) for n, bit in zip(sudoku, mask) if int(bit)]) for mask in _bitmasks]
 
 
@@ -36,23 +35,20 @@ def is_valid(structure):
     return True
 
 
-
 def main():
     sudoku = input('Your sudoku for validation, or "quit" to exit:  ')
 
     if sudoku == 'quit':
         pass
+    
     else:
         chunks = parse(sudoku)
-        if chunks and sudoku.isdigit():
+        if not chunks:
+            print('Input not understood.')      
+        else:
             # print out the sudoku because its nice
             print('\n'.join(['  '.join([str(n) for n in ch]) for ch in chunks[:4]]))
-            if is_valid(chunks):
-                print('This sudoku is *VALID*')
-            else:
-                print('This sudoku is *INVALID*')     
-        else:
-            print('Input not understood.') 
+            print('This sudoku is %s' % ('*INVALID*', '*VALID*')[is_valid(chunks)])
             
         main()
 
