@@ -12,7 +12,7 @@ def reverse_part(part):
         >>> reverse_part(['t', 'h', 'i', 's'])
         ['s', 'i', 'h', 't']
     """
-    pass
+    return reversed(part)
 
 
 def part_to_str(part):
@@ -25,7 +25,7 @@ def part_to_str(part):
         "abc"
 
     """
-    pass
+    return ''.join(part)
 
 
 def split_in_parts(sentence):
@@ -34,20 +34,32 @@ def split_in_parts(sentence):
 
     Example:
 
-        >>> split_in_parts("this is.")
+        >>> split_in_parts("this  is.")
         [['t', 'h', 'i', 's'], [' '], ['i', 's'], ['.']]
-
     """
-    pass
+    total_list = []
+    sub_list=[]
 
+    for char in sentence:
+        if char.isalpha():
+            sub_list.append(char)
+        else:
+            if sub_list:
+                total_list.append(sub_list)
+                sub_list = []
+            total_list.append([char])
+    
+    return total_list
 
+        
 def reverse_relevant_parts(parts):
     """Reverse only those sublists consisting of letters
     
     Input: list of lists, e.g. [['t', 'h', 'i', 's'], [' '], ['i', 's'], ['.']]
     Returns: list with sublists reversed that consist of letters only.
     """
-    pass
+    return [reverse_part(part) if part_to_str(part).isalpha()
+            else part for part in parts]
 
 
 def glue(parts):
@@ -55,7 +67,7 @@ def glue(parts):
     
     Returns: string
     """
-    pass
+    return part_to_str([part_to_str(part) for part in parts])
 
 
 def encrypt(sentence):
@@ -64,7 +76,8 @@ def encrypt(sentence):
     Input: a string
     Returns: a string
     """
-    pass
+    parts = split_in_parts(sentence)
+    return glue(reverse_relevant_parts(parts))
 
 
 if __name__ == "__main__":
