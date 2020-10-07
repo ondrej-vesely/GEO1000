@@ -2,7 +2,7 @@
 # Authors: Ondrej Vesely, Giorgos Triantafyllou
 # Studentnumbers: 5162130, 5381738
 
-def read_grid(filenm):
+def read_grid(finite):
     """
     """
     pass
