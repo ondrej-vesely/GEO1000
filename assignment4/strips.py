@@ -1,6 +1,6 @@
 # GEO1000 - Assignment 4
-# Authors:
-# Studentnumbers:
+# Authors: Ondrej Vesely, Giorgos Triantafyllou
+# Studentnumbers: 5162130, 5381738
 
 from geometry import Point, Rectangle
 
