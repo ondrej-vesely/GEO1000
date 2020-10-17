@@ -22,7 +22,7 @@ def visit(table, steps_allowed, path):
     """
     prev = None
     visit = (0,0)
-    for step in range(steps_allowed):
+    for _ in range(steps_allowed):
         if visit == prev:
             return True
         else:
