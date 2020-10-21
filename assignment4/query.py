@@ -87,6 +87,9 @@ Commands available:
         with a point:     p <px> <py>
         with a circle:    c <cx> <cy> <radius>
         with a rectangle: r <llx> <lly> <urx> <ury>
+    
+    Saving results as WKT:
+        dump
     """
     print(helptxt)
 
@@ -101,6 +104,8 @@ def main():
     """The main function of this program.
     """
     structure = None
+    shape = None
+    points = []
     print("Welcome to {0}.".format(basename(__file__)))
     print("=" * 76)
     print_help()
@@ -120,7 +125,22 @@ def main():
                 if structure is None:
                     print("No points read yet, open a file first!")
                 else:
-                    print_statistics(structure.query(parse(in_str)))
+                    shape = parse(in_str)
+                    points = structure.query(shape)
+                    print_statistics(points)
+
+            # custom dump for testing
+            elif in_str.startswith("dump") and shape and structure:
+                with open('strips.wkt', "w") as fh:
+                    fh.write(structure.dumps_strips())
+                with open('points.wkt', "w") as fh:
+                    fh.write(structure.dumps_points())
+                with open('shape.wkt', "w") as fh:
+                    fh.write('shape;\n%s;' % shape)
+                with open('result.wkt', "w") as fh:
+                    fh.write('points;\n')
+                    for p in points:
+                        fh.write('%s;\n' % p)
             else: 
                 print("Input not understood (use 'help')")
                 

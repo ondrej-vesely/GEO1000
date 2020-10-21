@@ -169,10 +169,10 @@ class Rectangle(object):
             return other.intersects(self)
 
         elif isinstance(other, Rectangle):
-            return any([
-                any([corner.intersects(self) for corner in other.corners()]),
-                any([corner.intersects(other) for corner in self.corners()])
-            ])         
+            return all([self.ll.x <= other.ll.x + other.width(),
+                        self.ll.x + self.width() >= other.ll.x,
+                        self.ll.y <= other.ll.y + other.height(),
+                        self.ll.y + self.height() >= other.ll.y])     
         else:
             print('Invalid shape type.')
             return None

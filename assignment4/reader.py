@@ -19,8 +19,12 @@ def read(file_nm, no_strips):
     with open(file_nm, 'r') as f:
         lines = [line for line in f.readlines() if not line.startswith('#')]
 
-    bbox, *pts = [[float(c) for c in line.split(' ')] for line in lines]
-
+    try:
+        bbox, *pts = [[float(c) for c in line.split(' ')] for line in lines]
+    except ValueError:
+        print('Found invalid value in the provided file.')
+        raise AssertionError
+        
     if len(bbox) == 4:
         extent = Rectangle(
             Point(bbox[0], bbox[1]),
@@ -34,7 +38,6 @@ def read(file_nm, no_strips):
                 
         return structure
 
-
 def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
     """Dump the contents of a strip structure to 2 files that can be opened
     with QGIS.
@@ -42,7 +45,10 @@ def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
     Returns - None
     """
     with open(strip_file_nm, "w") as fh:
-        fh.write(structure.dump_strips())
+        fh.write(structure.dumps_strips())
     with open(point_file_nm, "w") as fh:
-        fh.write(structure.dump_points())
+        fh.write(structure.dumps_points())
+        
+
+
 
