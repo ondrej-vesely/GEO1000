@@ -24,7 +24,7 @@ class StripStructure(object):
         n_strips = int(n_strips)
         
         self.strips = []
-        width = extent.width / n_strips
+        width = extent.width() / n_strips
 
         for i in range(n_strips):
             rect = Rectangle(
@@ -71,7 +71,7 @@ class StripStructure(object):
         
         Returns - None
         """
-        overlaps = [strip for strip in self.strips in pt.intersects(strip.rect)]
+        overlaps = [strip for strip in self.strips if pt.intersects(strip.rect)]
         if overlaps:
             strip = overlaps[0]
             strip.points.append(pt)
