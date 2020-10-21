@@ -17,8 +17,22 @@ def parse(geom_str):
     
     Returns - Point, Circle, or Rectangle
     """
-    pass
+    geom_str = geom_str.strip()
 
+    if geom_str.startswith('p'):
+        _, x, y = geom_str.split(' ')
+        return Point(float(x), float(y))
+
+    elif geom_str.startswith('c'):
+        _, cx, cy, r = geom_str.split(' ')
+        return Circle( Point(float(cx), float(cy)) , float(r))
+
+    elif geom_str.startswith('r'):
+        _, llx, lly, urx, ury = geom_str.split(' ')
+        return Rectangle(
+            Point(float(llx), float(lly)),
+            Point(float(urx), float(ury))
+        )
 
 def print_statistics(result):
     """Prints statistics for the resulting list of Points of a query
@@ -29,8 +43,34 @@ def print_statistics(result):
     
     Returns - None
     """
-    pass
+    if result:
+        left = right = result[0]
+        for pt in result:
+            if pt.x < left.x:
+                left = pt
+            elif pt.x == left.x and pt.y < left.y:
+                left = pt
+            elif pt.x > right.x:
+                right = pt
+            elif pt.x == right.x and pt.y > right.y:
+                right = pt          
+    msg = """
++--------------+
++ Result       +
++--------------+
+%s point(s).
+leftmost: %s id: %s
+rightmost: %s id: %s
+    """ % (len(result), left, id(left), right, id(right))
 
+    empty_msg = """
++--------------+
++ Result       +
++--------------+
+No points found inside shape.
+    """
+
+    print(msg if result else empty_msg)
 
 def print_help():
     """Prints a help message to the user, what can be done with the program.
@@ -66,7 +106,7 @@ def main():
     print("=" * 76)
     print_help()
     while True:
-        in_str = input("your command>>>\n").lower()
+        in_str = input("your command>>>\n").lower().strip()
         if in_str.startswith("quit"):
             print("Bye, bye.")
             return
