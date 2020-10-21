@@ -25,7 +25,7 @@ class Point(object):
     def distance(self, other):
         """Returns cartesian distance between self and other Point"""
         assert isinstance(other, Point)
-        return math.sqrt((other.x - self.x)**2 + (other.x - self.y)**2)
+        return math.sqrt((other.x - self.x)**2 + (other.y - self.y)**2)
         
     def intersects(self, other):
         """Checks whether other shape has any interaction with
@@ -82,7 +82,7 @@ class Circle(object):
         Returns - True / False
         """
         if isinstance(other, Point):
-            return other.intersects(self)
+            return other.distance(self.center) <= self.radius
 
         elif isinstance(other, Circle):
             return self.radius + other.radius >= self.center.distance(other.center)

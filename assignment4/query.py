@@ -17,18 +17,16 @@ def parse(geom_str):
     
     Returns - Point, Circle, or Rectangle
     """
-    geom_str = geom_str.strip()
-
     if geom_str.startswith('p'):
-        _, x, y = geom_str.split(' ')
+        _, x, y, *_ = geom_str.split(' ')
         return Point(float(x), float(y))
 
     elif geom_str.startswith('c'):
-        _, cx, cy, r = geom_str.split(' ')
-        return Circle( Point(float(cx), float(cy)) , float(r))
+        _, cx, cy, r, *_= geom_str.split(' ')
+        return Circle(Point(float(cx), float(cy)), float(r))
 
     elif geom_str.startswith('r'):
-        _, llx, lly, urx, ury = geom_str.split(' ')
+        _, llx, lly, urx, ury, *_ = geom_str.split(' ')
         return Rectangle(
             Point(float(llx), float(lly)),
             Point(float(urx), float(ury))
@@ -53,42 +51,43 @@ def print_statistics(result):
             elif pt.x > right.x:
                 right = pt
             elif pt.x == right.x and pt.y > right.y:
-                right = pt          
-    msg = """
-+--------------+
-+ Result       +
-+--------------+
-%s point(s).
-leftmost: %s id: %s
-rightmost: %s id: %s
-    """ % (len(result), left, id(left), right, id(right))
+                right = pt 
+
+        msg = """
+    +--------------+
+    + Result       +
+    +--------------+
+    %s point(s).
+    leftmost: %s id: %s
+    rightmost: %s id: %s
+        """ % (len(result), left, id(left), right, id(right))
 
     empty_msg = """
-+--------------+
-+ Result       +
-+--------------+
-No points found inside shape.
+    +--------------+
+    + Result       +
+    +--------------+
+    No points found inside shape.
     """
-
+    
     print(msg if result else empty_msg)
 
 def print_help():
-    """Prints a help message to the user, what can be done with the program.
-    """
+    """Prints a help message to the user, what can be done with the program."""
     helptxt = """
 Commands available:
 -------------------
-General:
-    help
-    quit
+    General:
+        help
+        quit
 
-Reading points in a structure, defining how many strips should be used:
-    open <filenm> into <number_of_strips>
+    Reading points in a structure, defining how many strips should be used:
+        open <filenm> into <number_of_strips>
 
-Querying:
-    with a point:     p <px> <py>
-    with a circle:    c <cx> <cy> <radius>
-    with a rectangle: r <llx> <lly> <urx> <ury>"""
+    Querying:
+        with a point:     p <px> <py>
+        with a circle:    c <cx> <cy> <radius>
+        with a rectangle: r <llx> <lly> <urx> <ury>
+    """
     print(helptxt)
 
 # =============================================================================
@@ -106,21 +105,27 @@ def main():
     print("=" * 76)
     print_help()
     while True:
-        in_str = input("your command>>>\n").lower().strip()
-        if in_str.startswith("quit"):
-            print("Bye, bye.")
-            return
-        elif in_str.startswith("help"):
-            print_help()
-        elif in_str.startswith("open"):
-            filenm, nstrips = in_str.replace("open ", "").split(" into ")
-            structure = read(filenm, int(nstrips))
-            structure.print_strip_statistics()
-        elif in_str.startswith("p") or in_str.startswith("c") or in_str.startswith("r"):
-            if structure is None:
-                print("No points read yet, open a file first!")
-            else:
-                print_statistics(structure.query(parse(in_str)))
+        try:
+            in_str = input("your command>>>\n").lower().strip()
+            if in_str.startswith("quit"):
+                print("Bye, bye.")
+                return
+            elif in_str.startswith("help"):
+                print_help()
+            elif in_str.startswith("open"):
+                filenm, nstrips = in_str.replace("open ", "").split(" into ")
+                structure = read(filenm, int(nstrips))
+                structure.print_strip_statistics()
+            elif in_str.startswith("p") or in_str.startswith("c") or in_str.startswith("r"):
+                if structure is None:
+                    print("No points read yet, open a file first!")
+                else:
+                    print_statistics(structure.query(parse(in_str)))
+            else: 
+                print("Input not understood (use 'help')")
+                
+        except AssertionError:
+            print('Invalid input value!')
 
 
 if __name__ == "__main__":
