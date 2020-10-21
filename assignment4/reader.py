@@ -16,7 +16,23 @@ def read(file_nm, no_strips):
     
     Returns - None or a StripStructure instance
     """
-    pass
+    with open(file_nm, 'r') as f:
+        lines = [line for line in f.readlines() if not line.startswith('#')]
+
+    bbox, *pts = [[float(c) for c in line.split(' ')] for line in lines]
+
+    if len(bbox) == 4:
+        extent = Rectangle(
+            Point(bbox[0], bbox[1]),
+            Point(bbox[2], bbox[3])
+        )
+        structure = StripStructure(extent, no_strips)
+
+        for pt in pts:
+            if len(pt) == 2:
+                structure.append_point(Point(pt[0], pt[1]))
+                
+        return structure
 
 
 def dump(structure, strip_file_nm="strips.wkt", point_file_nm="points.wkt"):
