@@ -19,11 +19,7 @@ def read(file_nm, no_strips):
     with open(file_nm, 'r') as f:
         lines = [line for line in f.readlines() if not line.startswith('#')]
 
-    try:
-        bbox, *pts = [[float(c) for c in line.split(' ')] for line in lines]
-    except ValueError:
-        print('Found invalid value in the provided file.')
-        raise AssertionError
+    bbox, *pts = [[float(c) for c in line.split(' ')] for line in lines]
         
     if len(bbox) == 4:
         extent = Rectangle(
